@@ -1,10 +1,13 @@
 import React from "react";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory,
 } from "react-router-dom";
+import axios from "axios";
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -24,10 +27,10 @@ export default function BasicExample() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about/">About</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard/">Dashboard</Link>
           </li>
         </ul>
 
@@ -44,10 +47,10 @@ export default function BasicExample() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/about">
-            <About />
+          <Route path="/play/">
+            <Play />
           </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard/">
             <Dashboard />
           </Route>
         </Switch>
@@ -56,21 +59,68 @@ export default function BasicExample() {
   );
 }
 
-// You can think of these components as "pages"
-// in your app.
+class SigninForm extends React.Component {
+  state = {
+    room_key: "",
+    name: "",
+  };
+
+  signIn = e => {
+    e.preventDefault();
+    axios.post("http://localhost:8000/signin/", this.state).then(() => {
+      this.props.history.push("/play/");
+    });
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  defaultIfEmpty = value => {
+    return value === "" ? "" : value;
+  };
+
+  render() {
+    return (
+      <Form onSubmit={this.signIn}>
+        <FormGroup>
+          <Label for="room_key">Room Key:</Label>
+          <Input
+            type="text"
+            name="room_key"
+            onChange={this.onChange}
+            value={this.defaultIfEmpty(this.state.room_key)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="name">Name:</Label>
+          <Input
+            type="text"
+            name="name"
+            onChange={this.onChange}
+            value={this.defaultIfEmpty(this.state.name)}
+          />
+        </FormGroup>
+        <Button>Join</Button>
+      </Form>
+    );
+  }
+}
 
 function Home() {
+  const history = useHistory();
+
   return (
     <div>
-      <h2>Home</h2>
+      <SigninForm history={history}/>
     </div>
   );
 }
 
-function About() {
+function Play() {
   return (
     <div>
-      <h2>About</h2>
+      <h2>Play</h2>
     </div>
   );
 }
