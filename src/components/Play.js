@@ -25,7 +25,10 @@ class SeatForm extends React.Component {
         if (this.props.game_data.available_slots != null) {
             for(const slot_idx of this.props.game_data.available_slots) {
                 seat_buttons.push(
-                    <Button variant="outlined" onClick={() => this.sitDown(slot_idx)} value={slot_idx}>
+                    <Button 
+                        variant="outlined" 
+                        onClick={() => this.sitDown(slot_idx)} value={slot_idx}
+                    >
                         Sit {slot_idx}
                     </Button>
                 )
@@ -51,14 +54,14 @@ class PlayerView extends React.Component {
     }
 
     is_in_game = function() {
-        if(this.state.game_data.game_type == "poker" && this.is_in_poker_game())
+        if(this.state.game_data.game_type === "poker" && this.is_in_poker_game())
             return true
         return false
     };
 
     is_in_poker_game = function () {
         if(this.state.game_data.poker_state == null) return false
-        return this.state.game_data.poker_state.game_status == "playing"
+        return this.state.game_data.poker_state.game_status === "playing"
     };
 
     componentDidMount() {
