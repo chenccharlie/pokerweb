@@ -4,6 +4,19 @@ import axios from "axios";
 import { Button } from "@material-ui/core"
 
 import { API_URL } from "../Constants"
+import ShowPoker from "./Poker"
+
+class GameInfoView extends React.Component {
+    render() {
+        let game = this.props.game_data
+        return (
+            <div>
+                <h4>ROOM KEY: <b>{game.room_key}</b></h4>
+                <h4>PLAYER NAME: <b>{game.name}</b></h4>
+            </div>
+        )
+    }
+}
 
 class SeatForm extends React.Component {
     sitDown = function(slot_idx) {
@@ -16,7 +29,7 @@ class SeatForm extends React.Component {
             post_data,
             { withCredentials: true }
         ).then(() => {
-            this.props.refreshData()
+            window.location.reload(false);
         });
     };
 
@@ -26,8 +39,9 @@ class SeatForm extends React.Component {
             for(const slot_idx of this.props.game_data.available_slots) {
                 seat_buttons.push(
                     <Button 
+                        key={slot_idx.toString()}
                         variant="outlined" 
-                        onClick={() => this.sitDown(slot_idx)} value={slot_idx}
+                        onClick={() => this.sitDown(slot_idx)}
                     >
                         Sit {slot_idx}
                     </Button>
@@ -37,9 +51,19 @@ class SeatForm extends React.Component {
 
         return (
             <div>
+                <h4>YOUR SEAT: {this.props.game_data.slot_idx}</h4>
                 { seat_buttons }
             </div >
         );
+    }
+}
+
+class GameView extends React.Component {
+    render() {
+        let game = this.props.game_data
+        if(game.game_type === "poker" && game.poker_state != null)
+            return ShowPoker(game)
+        return <div></div>
     }
 }
 
@@ -65,8 +89,8 @@ class PlayerView extends React.Component {
     };
 
     componentDidMount() {
-        // Refresh game data every 30 seconds
-        this.refreshData_interval = setInterval(this.refreshData, 30000)
+        // Refresh game data every 60 seconds
+        this.refreshData_interval = setInterval(this.refreshData, 60000)
         this.refreshData();
     }
 
@@ -91,15 +115,13 @@ class PlayerView extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    {JSON.stringify(this.state.game_data, null, '\t')}
-                </div>
+                <GameInfoView game_data={this.state.game_data} />
                 {!this.is_in_game() && 
                     <SeatForm 
                         game_data={this.state.game_data} 
-                        refreshData={this.refreshData} 
                     /> 
                 }
+                <GameView game_data={this.state.game_data} />
             </div>
         );
     }
@@ -107,11 +129,6 @@ class PlayerView extends React.Component {
 
 export default function Play() {
     return (
-        <div>
-            <h2>Play</h2>
-            <div>
-                <PlayerView />
-            </div>
-        </div>
+        <PlayerView />
     );
 }
