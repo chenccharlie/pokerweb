@@ -16,7 +16,7 @@ class SeatForm extends React.Component {
             post_data,
             { withCredentials: true }
         ).then(() => {
-            this.props.refresh_data()
+            this.props.refreshData()
         });
     };
 
@@ -46,7 +46,7 @@ class SeatForm extends React.Component {
 class PlayerView extends React.Component {
     constructor(props) {
         super(props)
-        this.refresh_data = this.refresh_data.bind(this)
+        this.refreshData = this.refreshData.bind(this)
     }
 
     state = {
@@ -66,15 +66,15 @@ class PlayerView extends React.Component {
 
     componentDidMount() {
         // Refresh game data every 30 seconds
-        this.refresh_data_interval = setInterval(this.refresh_data, 30000)
-        this.refresh_data();
+        this.refreshData_interval = setInterval(this.refreshData, 30000)
+        this.refreshData();
     }
 
     componentWillUnmount() {
-        clearInterval(this.refresh_data_interval)
+        clearInterval(this.refreshData_interval)
     }
 
-    refresh_data = async function () {
+    refreshData = async function () {
         try {
             let response = await axios.get(API_URL + "view/", {
                 withCredentials: true
@@ -97,7 +97,7 @@ class PlayerView extends React.Component {
                 {!this.is_in_game() && 
                     <SeatForm 
                         game_data={this.state.game_data} 
-                        refresh_data={this.refresh_data} 
+                        refreshData={this.refreshData} 
                     /> 
                 }
             </div>

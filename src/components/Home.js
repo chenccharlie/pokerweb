@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, TextField } from "@material-ui/core"
 import { useHistory } from "react-router-dom";
 
 import axios from "axios";
@@ -7,13 +7,17 @@ import axios from "axios";
 import { API_URL } from "../Constants"
 
 class SigninForm extends React.Component {
+    constructor(props) {
+        super(props)
+        this.signIn = this.signIn.bind(this)
+    }
+
     state = {
         room_key: "",
         name: "",
     };
 
-    signIn = e => {
-        e.preventDefault();
+    signIn = function() {
         axios.post(
             API_URL + "signin/", 
             this.state, 
@@ -24,7 +28,7 @@ class SigninForm extends React.Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({ [e.target.id]: e.target.value });
     };
 
     defaultIfEmpty = value => {
@@ -33,27 +37,23 @@ class SigninForm extends React.Component {
 
     render() {
         return (
-            <Form onSubmit={this.signIn}>
-                <FormGroup>
-                    <Label for="room_key">Room Key:</Label>
-                    <Input
-                        type="text"
-                        name="room_key"
-                        onChange={this.onChange}
-                        value={this.defaultIfEmpty(this.state.room_key)}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="name">Name:</Label>
-                    <Input
-                        type="text"
-                        name="name"
-                        onChange={this.onChange}
-                        value={this.defaultIfEmpty(this.state.name)}
-                    />
-                </FormGroup>
-                <Button>Join</Button>
-            </Form>
+            <div>
+                <TextField
+                    variant="outlined"
+                    id="room_key"
+                    label="Room Key"
+                    onChange={this.onChange}
+                    value={this.defaultIfEmpty(this.state.room_key)}
+                />
+                <TextField
+                    variant="outlined"
+                    id="name"
+                    label="Your Name"
+                    onChange={this.onChange}
+                    value={this.defaultIfEmpty(this.state.name)}
+                />
+                <Button variant="outlined" onClick={this.signIn}>Join</Button>
+            </div>
         );
     }
 }
