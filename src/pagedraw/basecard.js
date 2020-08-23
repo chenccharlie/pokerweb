@@ -20,9 +20,9 @@ export default class Basecard extends React.Component {
                   <div className="basecard-0-0-2">
                       <img src={this.props.img_src} className="basecard-colorcenter-5" /> 
                   </div>
-                  <div className="basecard-0-0-3" /> 
               </div>
           </div>
+          <div className="basecard-1" /> 
       </div>
     );
   }

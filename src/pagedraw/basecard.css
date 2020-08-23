@@ -11,36 +11,31 @@
 .basecard-0 {
     display: flex;
     flex-shrink: 0;
-    flex-grow: 1;
-    flex-basis: 0px;
-    min-height: fit-content;
 }
 
 .basecard-rectangle-7 {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0px;
-    min-height: fit-content;
-    padding-top: 5px;
+    padding-top: 3px;
+    padding-bottom: 32px;
     border-radius: 20px;
-    box-shadow: 2px 2px 4px 0px #000;
+    box-shadow: 1px 1px 2px 0px #000;
     background: rgb(243, 249, 241);
 }
 
 .basecard-0-0-0 {
     display: flex;
     flex-shrink: 0;
-    padding-right: 150px;
+    padding-right: 75px;
 }
 
 .basecard-number-9 {
-    width: 100px;
+    width: 50px;
     flex-shrink: 0;
     font-family: "Roboto", sans-serif;
     color: rgb(0, 0, 0);
-    font-size: 70px;
-    line-height: 70px;
+    font-size: 35px;
+    line-height: 35px;
     letter-spacing: 0px;
     font-weight: normal;
     font-style: normal;
@@ -52,13 +47,13 @@
 .basecard-0-0-1 {
     display: flex;
     flex-shrink: 0;
-    padding-left: 35px;
-    padding-right: 185px;
+    padding-left: 18px;
+    padding-right: 92px;
 }
 
 .basecard-colorcorner-8 {
-    width: 30px;
-    height: 30px;
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
     border-width: 0px;
 }
@@ -66,19 +61,19 @@
 .basecard-0-0-2 {
     display: flex;
     flex-shrink: 0;
-    margin-top: 30px;
-    padding-left: 50px;
-    padding-right: 50px;
+    margin-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .basecard-colorcenter-5 {
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     flex-shrink: 0;
     border-width: 0px;
 }
 
-.basecard-0-0-3 {
+.basecard-1 {
     flex-shrink: 0;
     flex-grow: 1;
     flex-basis: 0px;

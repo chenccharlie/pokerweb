@@ -4,7 +4,7 @@ import axios from "axios";
 import { Button, Grid, Input, Slider } from "@material-ui/core"
 
 import { API_URL } from "../Constants"
-import PlayerCards from "../pagedraw/playercards"
+import PlayerCardsView from "../pagedraw/playercardsview"
 
 import "../css/cards.css"
 
@@ -217,12 +217,12 @@ class PokerGameView extends React.Component {
             if (card.number === 12)
                 text = "Q"
             if (card.number === 13)
-                card.number = "K"
+                text = "K"
             card.number = text
         }
         return (
             <div>
-                <PlayerCards cards={game.poker_state.cards} toggleShowCards={this.toggleShowCards} show_cards={this.state.show_cards} />
+                <PlayerCardsView cards={game.poker_state.cards} toggleShowCards={this.toggleShowCards} show_cards={this.state.show_cards} />
                 <h5>Tokens Available: <b>{game.poker_state.amount_available + game.poker_state.pot_won}</b></h5>
                 {game.poker_state.is_your_turn && <PokerActionView poker_state={game.poker_state} />}
             </div>

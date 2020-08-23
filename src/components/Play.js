@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core"
 
 import { API_URL } from "../Constants"
 import ShowPoker from "./Poker"
-import Header from "../pagedraw/header"
+import HeaderView from "../pagedraw/headerview"
 
 class GameInfoView extends React.Component {
     render() {
@@ -116,7 +116,10 @@ class PlayerView extends React.Component {
     render() {
         return (
             <div>
-                <Header room_key={this.state.game_data.room_key} name={this.state.game_data.name} />
+                <HeaderView 
+                    room_key={this.state.game_data.room_key} 
+                    name={this.state.game_data.name} 
+                />
                 {!this.is_in_game() && 
                     <SeatForm 
                         game_data={this.state.game_data} 
