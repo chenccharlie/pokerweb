@@ -8,17 +8,11 @@ export default class Headertext extends React.Component {
     return (
       <div className="headertext-headertext-3">
           <div className="headertext-0">
-              <div className="headertext-0-0">
-                  <div className="headertext-0-0-0">
-                      <div className="headertext-0-0-0-0">
-                          <div className="headertext-room_key-3">
-                              { this.props.room_key }
-                          </div>
-                          <div className="headertext-room_label-1">{"Room: "}</div>
-                      </div>
-                  </div>
+              <div className="headertext-room_label-1">{"room: "}</div>
+              <div className="headertext-room_key-3">
+                  { this.props.room_key }
               </div>
-              <div className="headertext-name_label-8">{"Player: "}</div>
+              <div className="headertext-name_label-8">{"player: "}</div>
               <div className="headertext-name-7">
                   { this.props.name }
               </div>

@@ -14,59 +14,37 @@
     display: flex;
     flex-shrink: 0;
     padding-left: 5px;
-    padding-right: 7px;
-}
-
-.headertext-0-0 {
-    display: flex;
-    flex-direction: column;
-}
-
-.headertext-0-0-0 {
-    display: flex;
-    flex-shrink: 0;
-}
-
-.headertext-0-0-0-0 {
-    width: 131px;
-    height: 23px;
-    flex-shrink: 0;
-    position: relative;
-}
-
-.headertext-room_key-3 {
-    flex-grow: 1;
-    position: absolute;
-    top: 0px;
-    left: 65px;
-    font-family: "Open Sans", sans-serif;
-    color: rgb(224, 240, 233);
-    font-size: 20px;
-    line-height: 23px;
-    letter-spacing: 0px;
-    font-weight: bold;
-    font-style: italic;
-    text-decoration: none;
-    text-align: center;
-    word-wrap: break-word;
+    padding-right: 11px;
 }
 
 .headertext-room_label-1 {
-    flex-grow: 1;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    flex-shrink: 0;
     font-family: "Open Sans", sans-serif;
     color: rgb(224, 240, 233);
     font-size: 20px;
     line-height: 23px;
     letter-spacing: 0px;
     font-weight: normal;
+    font-style: italic;
+    text-decoration: none;
+    text-align: center;
+    word-wrap: break-word;
+    padding-right: 0.546875px;
+}
+
+.headertext-room_key-3 {
+    flex-shrink: 0;
+    margin-left: 3px;
+    font-family: "Open Sans", sans-serif;
+    color: rgb(224, 240, 233);
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0px;
+    font-weight: bold;
     font-style: normal;
     text-decoration: none;
     text-align: center;
     word-wrap: break-word;
-    padding-right: 0.34375px;
 }
 
 .headertext-name_label-8 {
@@ -78,11 +56,11 @@
     line-height: 23px;
     letter-spacing: 0px;
     font-weight: normal;
-    font-style: normal;
+    font-style: italic;
     text-decoration: none;
     text-align: center;
     word-wrap: break-word;
-    padding-right: 0.796875px;
+    padding-right: 0.578125px;
 }
 
 .headertext-name-7 {
@@ -93,11 +71,11 @@
     line-height: 23px;
     letter-spacing: 0px;
     font-weight: bold;
-    font-style: italic;
+    font-style: normal;
     text-decoration: none;
     text-align: center;
     word-wrap: break-word;
-    padding-right: 0.109375px;
+    padding-right: 0.828125px;
 }
 
 * {

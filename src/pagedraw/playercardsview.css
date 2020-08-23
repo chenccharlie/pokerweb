@@ -16,7 +16,7 @@
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    min-width: 332px;
+    min-width: 388px;
 }
 
 * {
