@@ -1,0 +1,19 @@
+.card-heart-2 .basecard-number-9 {
+    color: #be002f;
+}
+
+.card-diamond-8 .basecard-number-9 {
+    color: #f05654;
+}
+
+.card-spade-0 .basecard-number-9 {
+    color: #4a4266;
+}
+
+.card-club-4 .basecard-number-9 {
+    color: #cca4e3;
+}
+
+.card {
+    border: 0px;;
+}

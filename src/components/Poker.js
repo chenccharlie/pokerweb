@@ -1,40 +1,12 @@
 import React from "react";
 
 import axios from "axios";
-import { Button, Card, CardContent, Grid, Input, Slider, Typography } from "@material-ui/core"
+import { Button, Grid, Input, Slider } from "@material-ui/core"
 
 import { API_URL } from "../Constants"
+import PlayerCards from "../pagedraw/playercards"
 
-class CardView extends React.Component {
-    render() {
-        return (
-            <Card>
-                <CardContent>
-                    <Typography variant="h5" component="h2">
-                        <b>{this.props.card.color}</b>
-                    </Typography>
-                    <Typography color="textSecondary">
-                        <b>{this.props.card.number}</b>
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        {this.props.card.color} {this.props.card.number}
-                    </Typography>
-                </CardContent>
-            </Card>
-        )
-    }
-}
-
-class CardsView extends React.Component {
-    render() {
-        return (
-            <div>
-                <CardView card={this.props.cards[0]} />
-                <CardView card={this.props.cards[1]} />
-            </div>
-        )
-    }
-}
+import "../css/cards.css"
 
 class BetActionView extends React.Component {
     constructor(props) {
@@ -218,11 +190,39 @@ class PokerActionView extends React.Component {
 }
 
 class PokerGameView extends React.Component {
+    constructor(props) {
+        super(props)
+        this.toggleShowCards = this.toggleShowCards.bind(this)
+    }
+
+    state = {
+        show_cards: false
+    }
+
+    toggleShowCards = function () {
+        this.setState({
+            show_cards: !this.state.show_cards
+        })
+    }
+
     render() {
         let game = this.props.game_data
+        let cards = game.poker_state.cards
+        for(var card of cards) {
+            let text = card.number.toString()
+            if (card.number === 1)
+                text = "A"
+            if (card.number === 11)
+                text = "J"
+            if (card.number === 12)
+                text = "Q"
+            if (card.number === 13)
+                card.number = "K"
+            card.number = text
+        }
         return (
             <div>
-                <CardsView cards={game.poker_state.cards} />
+                <PlayerCards cards={game.poker_state.cards} toggleShowCards={this.toggleShowCards} show_cards={this.state.show_cards} />
                 <h5>Tokens Available: <b>{game.poker_state.amount_available + game.poker_state.pot_won}</b></h5>
                 {game.poker_state.is_your_turn && <PokerActionView poker_state={game.poker_state} />}
             </div>
