@@ -13,7 +13,7 @@ export default class Betcheckaction extends React.Component {
               <div className="betcheckaction-0-0">
                   <div className="betcheckaction-0-0-0">
                       <div className="betcheckaction-slider-7">
-                          <input type="range" onChange={this.props.handleSliderChange} min={String(this.props.min)} max={String(this.props.max)} value={String(this.props.value)} step="5" />
+                          <input type="range" onChange={this.props.handleSliderChange} min={0} max={String(this.props.max)} value={String(this.props.value)} step="5" />
                       </div>
                   </div>
               </div>

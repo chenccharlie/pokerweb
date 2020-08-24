@@ -18,7 +18,7 @@ class SeatForm extends React.Component {
             post_data,
             { withCredentials: true }
         ).then(() => {
-            window.location.reload(false);
+            this.props.refreshData()
         });
     };
 
@@ -51,7 +51,7 @@ class GameView extends React.Component {
     render() {
         let game = this.props.game_data
         if(game.game_type === "poker" && game.poker_state != null)
-            return ShowPoker(game)
+            return ShowPoker(game, this.props.setGameData)
         return <div></div>
     }
 }
@@ -60,6 +60,7 @@ class PlayerView extends React.Component {
     constructor(props) {
         super(props)
         this.refreshData = this.refreshData.bind(this)
+        this.setGameData = this.setGameData.bind(this)
     }
 
     state = {
@@ -101,6 +102,13 @@ class PlayerView extends React.Component {
         }
     }
 
+    setGameData = function(response) {
+        console.log(JSON.stringify(response.data, null, '\t'))
+        this.setState({
+            game_data: response.data
+        })
+    }
+
     render() {
         return (
             <div>
@@ -111,9 +119,13 @@ class PlayerView extends React.Component {
                 {!this.is_in_game() && 
                     <SeatForm 
                         game_data={this.state.game_data} 
+                        refreshData={this.refreshData}
                     /> 
                 }
-                <GameView game_data={this.state.game_data} />
+                <GameView 
+                    game_data={this.state.game_data} 
+                    setGameData={this.setGameData}
+                />
             </div>
         );
     }

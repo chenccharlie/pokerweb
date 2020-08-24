@@ -45,8 +45,16 @@
     display: flex;
     flex-shrink: 0;
     margin-top: 10px;
-    padding-left: 205px;
+    padding-left: 50px;
     padding-right: 40px;
+    justify-content: space-between;
+}
+
+.betfoldaction-follow_button-8 {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 117px;
 }
 
 .betfoldaction-fold_button-5 {

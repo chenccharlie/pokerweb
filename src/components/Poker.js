@@ -45,8 +45,8 @@ class PokerView extends React.Component {
             API_URL + "action/",
             post_data,
             { withCredentials: true }
-        ).then(() => {
-            window.location.reload(false);
+        ).then((response) => {
+            this.props.setGameData(response)
         });
     };
 
@@ -61,8 +61,8 @@ class PokerView extends React.Component {
             API_URL + "action/",
             post_data,
             { withCredentials: true }
-        ).then(() => {
-            window.location.reload(false);
+        ).then((response) => {
+            this.props.setGameData(response)
         });
     };
 
@@ -78,8 +78,8 @@ class PokerView extends React.Component {
             API_URL + "action/",
             post_data,
             { withCredentials: true }
-        ).then(() => {
-            window.location.reload(false);
+        ).then((response) => {
+            this.props.setGameData(response)
         });
     };
 
@@ -131,8 +131,8 @@ class PokerView extends React.Component {
     }
 }
 
-export default function ShowPoker(game_data) {
+export default function ShowPoker(game_data, setGameData) {
     return (
-        <PokerView game_data={game_data}/>
+        <PokerView game_data={game_data} setGameData={setGameData} />
     );
 }
