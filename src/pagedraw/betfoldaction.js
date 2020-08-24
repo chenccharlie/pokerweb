@@ -12,7 +12,9 @@ export default class Betfoldaction extends React.Component {
           <div className="betfoldaction-0">
               <div className="betfoldaction-0-0">
                   <div className="betfoldaction-0-0-0">
-                      <input type="range" min={String(this.props.min)} max={String(this.props.max)} value={String(this.props.value)} onChange={this.props.handleSliderChange} className="betfoldaction-slider-5" /> 
+                      <div className="betfoldaction-slider-5">
+                          <input type="range" min={String(this.props.min)} max={String(this.props.max)} value={String(this.props.value)} onChange={this.props.handleSliderChange} className="betfoldaction-slider-5" step="5" />
+                      </div>
                   </div>
               </div>
               <div className="betfoldaction-bet_button-6">

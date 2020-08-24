@@ -29,12 +29,9 @@
 }
 
 .betcheckaction-slider-7 {
-    width: 120px;
-    height: 25px;
     flex-shrink: 0;
-    cursor: pointer;
-    border-width: 0px;
-    margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .betcheckaction-bet_button-2 {

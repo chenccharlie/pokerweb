@@ -29,12 +29,9 @@
 }
 
 .betfoldaction-slider-5 {
-    width: 120px;
-    height: 25px;
     flex-shrink: 0;
-    cursor: pointer;
-    border-width: 0px;
-    margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .betfoldaction-bet_button-6 {
