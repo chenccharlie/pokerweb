@@ -1,111 +1,40 @@
 import React from "react";
 
 import axios from "axios";
-import { Button, Grid, Input, Slider } from "@material-ui/core"
 
 import { API_URL } from "../Constants"
-import PlayerCardsView from "../pagedraw/playercardsview"
+import PokerGameView from "../pagedraw/pokergameview"
 
 import "../css/cards.css"
 
-class BetActionView extends React.Component {
+class PokerView extends React.Component {
     constructor(props) {
         super(props)
+        this.toggleShowCards = this.toggleShowCards.bind(this)
         this.handleSliderChange = this.handleSliderChange.bind(this)
-        this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleBlur = this.handleBlur.bind(this)
+        this.checkAction = this.checkAction.bind(this)
+        this.foldAction = this.foldAction.bind(this)
+        this.betAction = this.betAction.bind(this)
     }
 
     state = {
-        amount: this.props.min_bet
+        show_cards: false,
+        cur_bet: 0,
     }
 
-    handleSliderChange = (event, newValue) => {
+    toggleShowCards = function () {
         this.setState({
-            amount: newValue
+            show_cards: !this.state.show_cards
+        })
+    }
+
+    handleSliderChange = function(event) {
+        this.setState({
+            cur_bet: event.target.value
         })
     };
 
-    handleInputChange = (event) => {
-        let amount = (event.target.value === '' ? '' : Number(event.target.value))
-        this.setState({
-            amount: amount
-        })
-    };
-
-    handleBlur = (value) => {
-        if (value < this.min_bet) {
-            this.setState({
-                amount: this.min_bet
-            })
-        } else if (value > this.max_bet) {
-            this.setState({
-                amount: this.max_bet
-            })
-        }
-    };
-
-    makeBet = function (amount) {
-        let post_data = {
-            "poker_action": {
-                "action_type": "bet",
-                "amount_bet": amount
-            }
-        }
-
-        axios.post(
-            API_URL + "action/",
-            post_data,
-            { withCredentials: true }
-        ).then(() => {
-            window.location.reload(false);
-        });
-    };
-
-    render() {
-        return (
-            <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                    <Button
-                        variant="outlined"
-                        onClick={() => this.makeBet(this.state.amount)}
-                    >
-                        Bet {this.state.amount}
-                    </Button>
-                </Grid>
-                <Grid item xs>
-                    <Slider
-                        id="bet_amount_slider"
-                        value={typeof this.state.amount === 'number' ? this.state.amount : 0}
-                        onChange={this.handleSliderChange}
-                        aria-labelledby="input-slider"
-                        min={this.props.min_bet}
-                        max={this.props.max_bet}
-                    />
-                </Grid>
-                <Grid item>
-                    <Input
-                        id="bet_amount_input"
-                        value={this.state.amount}
-                        margin="dense"
-                        onChange={this.handleInputChange}
-                        onBlur={() => this.handleBlur(this.state.amount)}
-                        inputProps={{
-                            step: 10,
-                            min: this.props.min_bet,
-                            max: this.props.max_bet,
-                            type: 'number',
-                            'aria-labelledby': 'input-slider',
-                        }}
-                    />
-                </Grid>
-            </Grid>
-        )
-    }
-}
-
-class CheckActionView extends React.Component {
-    makeCheck = function (amount) {
+    checkAction = function () {
         let post_data = {
             "poker_action": {
                 "action_type": "check",
@@ -121,24 +50,7 @@ class CheckActionView extends React.Component {
         });
     };
 
-    render() {
-        return (
-            <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                    <Button
-                        variant="outlined"
-                        onClick={() => this.makeCheck()}
-                    >
-                        Check
-                    </Button>
-                </Grid>
-            </Grid>
-        )
-    }
-}
-
-class FoldActionView extends React.Component {
-    makeCheck = function (amount) {
+    foldAction = function () {
         let post_data = {
             "poker_action": {
                 "action_type": "fold",
@@ -154,56 +66,22 @@ class FoldActionView extends React.Component {
         });
     };
 
-    render() {
-        return (
-            <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                    <Button
-                        variant="outlined"
-                        onClick={() => this.makeCheck()}
-                    >
-                        Fold
-                    </Button>
-                </Grid>
-            </Grid>
-        )
-    }
-}
-
-class PokerActionView extends React.Component {
-    render() {
-        if(this.props.min_bet === 0) {
-            return (
-                <div>
-                    <BetActionView min_bet={10} max_bet={this.props.poker_state.amount_available} />
-                    <CheckActionView />
-                </div>
-            )
+    betAction = function (amount) {
+        let post_data = {
+            "poker_action": {
+                "action_type": "bet",
+                "amount_bet": amount,
+            }
         }
-        return (
-            <div>
-                <BetActionView min_bet={this.props.poker_state.min_bet} max_bet={this.props.poker_state.amount_available} />
-                <FoldActionView />
-            </div>
-        )
-    }
-}
 
-class PokerGameView extends React.Component {
-    constructor(props) {
-        super(props)
-        this.toggleShowCards = this.toggleShowCards.bind(this)
-    }
-
-    state = {
-        show_cards: false
-    }
-
-    toggleShowCards = function () {
-        this.setState({
-            show_cards: !this.state.show_cards
-        })
-    }
+        axios.post(
+            API_URL + "action/",
+            post_data,
+            { withCredentials: true }
+        ).then(() => {
+            window.location.reload(false);
+        });
+    };
 
     render() {
         let game = this.props.game_data
@@ -220,11 +98,34 @@ class PokerGameView extends React.Component {
                 text = "K"
             card.number = text
         }
+        let user_action = ""
+        let min_bet = game.poker_state.min_bet
+        let amount_available = game.poker_state.amount_available + game.poker_state.pot_won
+        if (game.poker_state.is_your_turn) {
+            if (min_bet === 0) {
+                min_bet = Math.min(game.poker_state.small_blind, amount_available)
+                user_action = "bet_or_check"
+            } else {
+                user_action = "bet_or_fold"
+            }
+            this.state.cur_bet = Math.max(min_bet, this.state.cur_bet)
+        }
+
         return (
             <div>
-                <PlayerCardsView cards={game.poker_state.cards} toggleShowCards={this.toggleShowCards} show_cards={this.state.show_cards} />
-                <h5>Tokens Available: <b>{game.poker_state.amount_available + game.poker_state.pot_won}</b></h5>
-                {game.poker_state.is_your_turn && <PokerActionView poker_state={game.poker_state} />}
+                <PokerGameView 
+                    cards={game.poker_state.cards} 
+                    toggleShowCards={this.toggleShowCards} 
+                    show_cards={this.state.show_cards}
+                    amount_available={amount_available}
+                    min_bet={min_bet}
+                    cur_bet={this.state.cur_bet}
+                    user_action={user_action}
+                    betAction={this.betAction}
+                    checkAction={this.checkAction}
+                    foldAction={this.foldAction}
+                    handleSliderChange={this.handleSliderChange}
+                />
             </div>
         )
     }
@@ -232,6 +133,6 @@ class PokerGameView extends React.Component {
 
 export default function ShowPoker(game_data) {
     return (
-        <PokerGameView game_data={game_data}/>
+        <PokerView game_data={game_data}/>
     );
 }

@@ -9,9 +9,11 @@ export default class Headerview extends React.Component {
     return (
       <div className="headerview-headerview-3">
           <div className="headerview-0">
-              <div className="headerview-headertext_instance-6">
+              <div className="headerview-0-0" /> 
+              <div className="headerview-text-6">
                   <Headertext room_key={this.props.room_key} name={this.props.name} /> 
               </div>
+              <div className="headerview-0-2" /> 
           </div>
       </div>
     );

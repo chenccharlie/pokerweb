@@ -8,7 +8,7 @@ export default class Basecard extends React.Component {
     return (
       <div className="basecard-basecard-2">
           <div className="basecard-0">
-              <div className="basecard-rectangle-7">
+              <div className="basecard-cardframe-7">
                   <div className="basecard-0-0-0">
                       <div className="basecard-number-9">
                           { this.props.text }

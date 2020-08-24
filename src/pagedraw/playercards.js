@@ -11,8 +11,8 @@ export default class Playercards extends React.Component {
           <div className="playercards-0">
               <div className="playercards-0-0">
                   <div className="playercards-0-0-0">
-                      <div onClick={this.props.toggleShowCards} className="playercards-show_cards-9">
-                          <input type="checkbox" className="playercards-0-0-0-0-0" /> 
+                      <div onClick={() => {this.props.toggleShowCards();}} className="playercards-show_cards-9">
+                          <input type="checkbox" checked={(this.props.show_cards.checked) ? 'true' : undefined} className="playercards-0-0-0-0-0" /> 
                       </div>
                   </div>
               </div>

@@ -7,18 +7,6 @@ import { API_URL } from "../Constants"
 import ShowPoker from "./Poker"
 import HeaderView from "../pagedraw/headerview"
 
-class GameInfoView extends React.Component {
-    render() {
-        let game = this.props.game_data
-        return (
-            <div>
-                <h4>ROOM KEY: <b>{game.room_key}</b></h4>
-                <h4>PLAYER NAME: <b>{game.name}</b></h4>
-            </div>
-        )
-    }
-}
-
 class SeatForm extends React.Component {
     sitDown = function(slot_idx) {
         let post_data = {
